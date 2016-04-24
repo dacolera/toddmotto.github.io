@@ -9,33 +9,33 @@ tags:
 - JavaScript
 ---
 
-I'm a massive fan of JavaScript's Module Pattern and I'd like to share some use cases and differences in the pattern, and why they're important. The Module Pattern is what we'd call a "[design pattern](http://code.tutsplus.com/tutorials/understanding-design-patterns-in-javascript--net-25930),"and it's extremely useful for a vast amount of reasons. My main attraction to the Module Pattern (and its variant, the Revealing Module Pattern) is it makes scoping a breeze and doesn't overcomplicate program design. 
+Eu sou um grande fan do JavaScript's Module Pattern e eu gostaria de compartilhar algumas formas de uso e diferenças nesse pattern, e porque ele é tão importante. O Module Pattern é o que chamamos de "[design pattern](http://code.tutsplus.com/tutorials/understanding-design-patterns-in-javascript--net-25930)," e é muito útil por muitas razões. O que mais me atrai ao Module Pattern (e suas variantes, como o Revealing Module Pattern) é sua organização o que acaba ajudando em designs bastante complicados. 
 
-It also keeps things very simple and easy to read and use, uses Objects in a very nice way, and doesn't bloat your code with repetitive `this` and `prototype` declarations. I thought I'd share some insight as to the awesome parts of the Module, and how you can master it, its variants and features.
+Ele mantem as coisas muitos simples, faceis de ler e usar, usa Objects de uma forma muito legal,  e não fica enchendo seu codigo com repetitivas declarações de `this` e `prototype`. I penso em mostrar alguns insights e as melhores partes do Module, e como se pode domina-lo, assim como suas variantes e capacidades.
 
-### Creating a Module
-To understand what a Module can give you, you'll need to understand what the following `function` concept does:
+### Criando um Modulo
+Para entender o que um modulo pode fazer por voce, voce deve entender o que a declaracao `function` abaixo faz:
 
 {% highlight javascript %}
 (function () {
-  // code
+  // codigo
 })();
 {% endhighlight %}
 
-It declares a function, which then calls itself immediately. These are also known as [Immediately-Invoked-Function-Expressions](http://benalman.com/news/2010/11/immediately-invoked-function-expression), in which the `function` creates new scope and creates "privacy". JavaScript doesn't have privacy, but creating new scope emulates this when we wrap all our function logic inside them. The idea then is to return only the parts we need, leaving the other code out of the `global` scope.
+Ele declara uma funcao, que será executada imediatamente. Isso tambem é conhecido como [Immediately-Invoked-Function-Expressions](http://benalman.com/news/2010/11/immediately-invoked-function-expression), o qual uma `function` cria um novo escopo "privado". JavaScript não possui privacidade, mas com a criacao de novos escopos nos conseguimos emular essa "privacidade" em tudo que for criado dentro dele. A ideal seria retornarmos apenas as partes que queremos,impedindo que o restante do codigo polua o namespace global.
 
-After creating new `scope`, we need to namespace our code so that we can access any methods we return. Let's create a namespace for our anonymous Module.
+Depois da criacao de um novo `scope`, precisamos criar um namespace para nosso codigo para que possamos acessar qualquer metodo que retornarmos. Vamos criar um namespace para nosso até então anonimo Module.
 
 {% highlight javascript %}
 var Module = (function () {
-  // code
+  // codigo
 })();
 {% endhighlight %}
 
-We then have `Module` declared in the global scope, which means we can call it wherever we like, and even pass it into another Module.
+Agora nós temos `Module` declaredo no escopo global, o que significa que podemos chama-lo sempre que quisermos, e até mesmo podemos passa-lo para outro modulo.
 
-### Private methods
-You'll see and hear a lot about `private` methods in JavaScript. But Javascript doesn't _strictly_ have `private` methods, but we _can_ create a working equivalent.
+### Metodos Privados
+Muito se fala em `private` methods em JavaScript. Mas o  Javascript não _strictly_ tem `private` methods, mas nos podemos _can_ create a working equivalent.
 
 What _are_ private methods you might be asking? Private methods are anything you don't want users/devs/hackers to be able to see/call outside the scope they're in. We might be making server calls and posting sensitive data, we _don't_ want to expose those functions publicly, they could post anything back then and take advantage of our code. So we can create closure and be more sensible (as best as we can with JavaScript) at protecting our code. It's not _all_ about protection however, there are also naming conflicts. I bet when you first started out writing jQuery/JavaScript, that you dumped all your code in one file and it was just `function, function, function`. Little did you know these were all global, and you probably suffered the consequence at some point. If so, you'll learn why, and what to do to change it.
 
